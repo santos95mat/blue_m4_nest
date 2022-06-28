@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/users.entities';
 import { UsersService } from './users.service';
 
@@ -20,7 +29,17 @@ export class UsersController {
   }
 
   @Post()
-  createUser(@Body() dto: CreateUserDto): Promise<User> {
+  create(@Body() dto: CreateUserDto): Promise<User> {
     return this.usersService.createUser(dto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.usersService.delete(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
+    return this.usersService.update(id, dto);
   }
 }
