@@ -4,5 +4,5 @@ export class User {
   email: string;
   password: string;
   createdAt: Date;
-  updateAt: Date;
+  updatedAt: Date;
 }
