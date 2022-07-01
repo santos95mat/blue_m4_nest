@@ -22,39 +22,42 @@ export class UsersController {
   @ApiOperation({
     summary: 'Criação de usuário',
   })
-  create(@Body() dto: CreateUserDto): Promise<User> {
-    return this.usersService.create(dto);
+  async create(@Body() dto: CreateUserDto): Promise<User | void> {
+    return await this.usersService.create(dto);
   }
 
   @Get()
   @ApiOperation({
     summary: 'Listagem dos usuários',
   })
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  async findAll(): Promise<User[]> {
+    return await this.usersService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({
     summary: 'Listagem de um usuário',
   })
-  findOne(@Param('id') id: string): Promise<User> {
-    return this.usersService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<User> {
+    return await this.usersService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({
     summary: 'Atualização de um usuário',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
-    return this.usersService.update(id, dto);
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+  ): Promise<User | void> {
+    return await this.usersService.update(id, dto);
   }
 
   @Delete(':id')
   @ApiOperation({
     summary: 'Exclusão de um usuário',
   })
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.usersService.remove(id);
   }
 }

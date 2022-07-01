@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/users.entities';
@@ -9,32 +13,56 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(dto: CreateUserDto): Promise<User> {
+  async create(dto: CreateUserDto): Promise<User | void> {
     const hashedPassword: string = bcrypt.hashSync(dto.password, 8);
     const data: CreateUserDto = {
       name: dto.name,
       email: dto.email,
       password: hashedPassword,
     };
-    return this.prisma.user.create({ data });
+    return await this.prisma.user
+      .create({ data })
+      .catch(this.handleErrorConstraintUnique);
   }
 
-  findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  async findAll(): Promise<User[]> {
+    return await this.prisma.user.findMany();
   }
 
-  findOne(id: string): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id } });
+  async findOne(id: string): Promise<User> {
+    const user: User = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException(`Entrada de id ${id} não encontrada`);
+    }
+
+    return user;
   }
 
-  update(id: string, dto: UpdateUserDto): Promise<User> {
-    return this.prisma.user.update({ where: { id }, data: dto });
+  async update(id: string, dto: UpdateUserDto): Promise<User | void> {
+    await this.findOne(id);
+
+    return await this.prisma.user
+      .update({ where: { id }, data: dto })
+      .catch(this.handleErrorConstraintUnique);
   }
 
-  remove(id: string) {
-    return this.prisma.user.delete({
+  async remove(id: string) {
+    await this.findOne(id);
+
+    return await this.prisma.user.delete({
       where: { id },
       select: { name: true, email: true },
     });
+  }
+
+  handleErrorConstraintUnique(error: Error): never {
+    const splitedMessage = error.message.split('`');
+
+    const errorMessage = `Entrada '${
+      splitedMessage[splitedMessage.length - 2]
+    }' não está respeitando a constraint UNIQUE`;
+
+    throw new UnprocessableEntityException(errorMessage);
   }
 }
