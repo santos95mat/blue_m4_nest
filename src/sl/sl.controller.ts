@@ -11,6 +11,7 @@ import { SlService } from './sl.service';
 import { CreateSlDto } from './dto/create-sl.dto';
 import { UpdateSlDto } from './dto/update-sl.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Sl } from './entities/sl.entity';
 
 @ApiTags('sl')
 @Controller('sl')
@@ -21,32 +22,35 @@ export class SlController {
   @ApiOperation({
     summary: 'Criação de poste',
   })
-  create(@Body() dto: CreateSlDto) {
-    return this.slService.create(dto);
+  async create(@Body() dto: CreateSlDto): Promise<Sl | void> {
+    return await this.slService.create(dto);
   }
 
   @Get()
   @ApiOperation({
     summary: 'Listagem dos postes',
   })
-  findAll() {
-    return this.slService.findAll();
+  async findAll(): Promise<Sl[]> {
+    return await this.slService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({
     summary: 'Listagem de um poste',
   })
-  findOne(@Param('id') id: string) {
-    return this.slService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<Sl> {
+    return await this.slService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({
     summary: 'Atualização de um poste',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateSlDto) {
-    return this.slService.update(id, dto);
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateSlDto,
+  ): Promise<Sl | void> {
+    return await this.slService.update(id, dto);
   }
 
   @Delete(':id')
