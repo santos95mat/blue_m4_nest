@@ -31,5 +31,17 @@ model SL {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  empresa Empresa @relation(fields: [empresaId], references: [id])
+  empresaId String @map("empresa_id")
+
   @@map("sl")
+}
+
+model Empresa {
+  id String @id @default(uuid())
+  name String @unique
+
+  sl SL[]
+
+  @@map("empresa")
 }

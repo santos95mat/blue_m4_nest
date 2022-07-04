@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID, Length } from 'class-validator';
 
 export class CreateSlDto {
   @IsString()
@@ -41,4 +41,11 @@ export class CreateSlDto {
     example: 'Belo Horizonte',
   })
   city: string;
+
+  @IsUUID()
+  @ApiProperty({
+    description: 'Id da categoria do produto',
+    example: '08cf6bcd-9ce2-4d7b-8982-3b5b3fe601d5',
+  })
+  empresaId: string;
 }

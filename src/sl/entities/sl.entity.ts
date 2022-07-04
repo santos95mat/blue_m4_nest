@@ -7,4 +7,5 @@ export class Sl {
   city: string;
   createdAt: Date;
   updatedAt: Date;
+  empresaId: string;
 }
