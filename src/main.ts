@@ -15,6 +15,8 @@ async function bootstrap() {
     .addServer('http://localhost:3333')
     .addTag('status')
     .addTag('users')
+    .addTag('sl')
+    .addTag('empresa')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -1,9 +1,6 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
 import { CreateSlDto } from './dto/create-sl.dto';
 import { UpdateSlDto } from './dto/update-sl.dto';
 import { Sl } from './entities/sl.entity';
@@ -13,7 +10,9 @@ export class SlService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateSlDto): Promise<Sl | void> {
-    return await this.prisma.sL.create({ data: dto });
+    return await this.prisma.sL
+      .create({ data: dto })
+      .catch(handleErrorConstraintUnique);
   }
 
   async findAll(): Promise<Sl[]> {
@@ -35,22 +34,12 @@ export class SlService {
 
     return await this.prisma.sL
       .update({ where: { id }, data: dto })
-      .catch(this.handleErrorConstraintUnique);
+      .catch(handleErrorConstraintUnique);
   }
 
   async remove(id: string) {
     await this.findOne(id);
 
     return await this.prisma.sL.delete({ where: { id } });
-  }
-
-  handleErrorConstraintUnique(error: Error): never {
-    const splitedMessage = error.message.split('`');
-
-    const errorMessage = `Entrada '${
-      splitedMessage[splitedMessage.length - 2]
-    }' não está respeitando a constraint UNIQUE`;
-
-    throw new UnprocessableEntityException(errorMessage);
   }
 }

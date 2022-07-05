@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
+import { Empresa } from './entities/empresa.entity';
 
 @Injectable()
 export class EmpresaService {
-  create(dto: CreateEmpresaDto) {
-    return 'This action adds a new empresa';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(dto: CreateEmpresaDto): Promise<Empresa> {
+    return await this.prisma.empresa
+      .create({ data: dto })
+      .catch(handleErrorConstraintUnique);
   }
 
-  findAll() {
-    return `This action returns all empresa`;
+  async findAll(): Promise<Empresa[]> {
+    return await this.prisma.empresa.findMany();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} empresa`;
+  async findOne(id: string): Promise<Empresa> {
+    return await this.prisma.empresa.findUnique({ where: { id } });
   }
 
-  update(id: string, dto: UpdateEmpresaDto) {
-    return `This action updates a #${id} empresa`;
+  async update(id: string, dto: UpdateEmpresaDto): Promise<Empresa> {
+    return await this.prisma.empresa
+      .update({ where: { id }, data: dto })
+      .catch(handleErrorConstraintUnique);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} empresa`;
+  async remove(id: string) {
+    return await this.prisma.empresa.delete({ where: { id } });
   }
 }

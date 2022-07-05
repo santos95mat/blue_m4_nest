@@ -57,7 +57,7 @@ export class SlController {
   @ApiOperation({
     summary: 'Exclusão de um poste',
   })
-  remove(@Param('id') id: string) {
-    return this.slService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.slService.remove(id);
   }
 }
