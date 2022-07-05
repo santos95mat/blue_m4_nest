@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
@@ -20,16 +20,28 @@ export class EmpresaService {
   }
 
   async findOne(id: string): Promise<Empresa> {
-    return await this.prisma.empresa.findUnique({ where: { id } });
+    const empresa: Empresa = await this.prisma.empresa.findUnique({
+      where: { id },
+    });
+
+    if (!empresa) {
+      throw new NotFoundException(`Entrada de id ${id} não encontrada`);
+    }
+
+    return empresa;
   }
 
   async update(id: string, dto: UpdateEmpresaDto): Promise<Empresa> {
+    await this.findOne(id);
+
     return await this.prisma.empresa
       .update({ where: { id }, data: dto })
       .catch(handleErrorConstraintUnique);
   }
 
   async remove(id: string) {
+    await this.findOne(id);
+
     return await this.prisma.empresa.delete({ where: { id } });
   }
 }
