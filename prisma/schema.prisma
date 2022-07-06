@@ -15,8 +15,8 @@ model User {
   name String
   email String @unique
   password String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("user")
 }
@@ -28,8 +28,8 @@ model SL {
   street String
   district String
   city String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   empresa Empresa @relation(fields: [empresaId], references: [id])
   empresaId String @map("empresa_id")
@@ -40,8 +40,19 @@ model SL {
 model Empresa {
   id String @id @default(uuid())
   name String @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   sl SL[]
 
   @@map("empresa")
+}
+
+model Problems {
+  id String @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("problems")
 }

@@ -1,4 +1,4 @@
-export class Empresa {
+export class Problem {
   id: string;
   name: string;
   createdAt: Date;
