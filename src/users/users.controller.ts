@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Favorite } from 'src/favorite/entities/favorite.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/users.entities';
@@ -59,5 +60,13 @@ export class UsersController {
   })
   async remove(@Param('id') id: string) {
     return await this.usersService.remove(id);
+  }
+
+  @Get(':id/favorites')
+  @ApiOperation({
+    summary: 'Postes favoritos do usuário',
+  })
+  async findAllFav(@Param('id') id: string): Promise<Favorite[]> {
+    return await this.usersService.findAllFav(id);
   }
 }

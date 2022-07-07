@@ -1,6 +1,6 @@
 export class Sl {
   id: string;
-  codigo: string;
+  name: string;
   cep: string;
   street: string;
   district: string;

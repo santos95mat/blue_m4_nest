@@ -12,6 +12,8 @@ import { CreateSlDto } from './dto/create-sl.dto';
 import { UpdateSlDto } from './dto/update-sl.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Sl } from './entities/sl.entity';
+import { FavoriteProductDto } from '../favorite/dto/favorite-sl-dto';
+import { Favorite } from 'src/favorite/entities/favorite.entity';
 
 @ApiTags('sl')
 @Controller('sl')
@@ -59,5 +61,21 @@ export class SlController {
   })
   async remove(@Param('id') id: string) {
     return await this.slService.remove(id);
+  }
+
+  @Post('favorite')
+  @ApiOperation({
+    summary: 'Favoritando um poste',
+  })
+  async favorite(@Body() dto: FavoriteProductDto): Promise<Favorite> {
+    return await this.slService.favorite(dto);
+  }
+
+  @Delete('favorite/:id')
+  @ApiOperation({
+    summary: 'Desfavoritar um poste',
+  })
+  async unfavorite(@Param('id') id: string) {
+    return await this.slService.unfavorite(id);
   }
 }

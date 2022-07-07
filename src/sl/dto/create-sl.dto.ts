@@ -8,7 +8,7 @@ export class CreateSlDto {
     description: 'Código do poste',
     example: 'P01',
   })
-  codigo: string;
+  name: string;
 
   @IsString()
   @Length(8)

@@ -18,18 +18,22 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  favorite Favorite[]
+
   @@map("user")
 }
 
 model SL {
   id String @id @default(uuid())
-  codigo String @unique
+  name String @unique
   cep String
   street String
   district String
   city String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  favorite Favorite[]
 
   empresa Empresa @relation(fields: [empresaId], references: [id])
   empresaId String @map("empresa_id")
@@ -55,4 +59,19 @@ model Problems {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("problems")
+}
+
+model Favorite {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  slid SL @relation(fields: [slname], references: [name])
+  slname String @map("sl_name")
+
+  @@map("favorite")
+  @@unique([userId, slname])
 }
