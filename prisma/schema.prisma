@@ -19,6 +19,7 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   favorite Favorite[]
+  os Os[]
 
   @@map("user")
 }
@@ -37,6 +38,8 @@ model SL {
 
   empresa Empresa? @relation(fields: [empresaId], references: [id], onDelete: SetNull)
   empresaId String? @map("empresa_id")
+
+  os Os[]
 
   @@map("sl")
 }
@@ -58,6 +61,8 @@ model Problems {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  os Os[]
+
   @@map("problems")
 }
 
@@ -74,4 +79,20 @@ model Favorite {
 
   @@map("favorite")
   @@unique([userId, slname])
+}
+
+model Os {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  problem Problems? @relation(fields: [problemName], references: [name], onDelete: SetNull)
+  problemName String? @map("problem_name")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String? @map("user_id")
+
+  sl SL[]
+
+  @@map("os")
 }
