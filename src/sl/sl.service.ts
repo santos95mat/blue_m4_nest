@@ -7,6 +7,7 @@ import { FavoriteProductDto } from '../favorite/dto/favorite-sl-dto';
 import { UpdateSlDto } from './dto/update-sl.dto';
 import { Favorite } from '../favorite/entities/favorite.entity';
 import { Sl } from './entities/sl.entity';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class SlService {
@@ -65,8 +66,21 @@ export class SlService {
       );
     }
 
+    const data: Prisma.FavoriteCreateInput = {
+      user: {
+        connect: {
+          id: dto.userId,
+        },
+      },
+      slid: {
+        connect: {
+          name: dto.slname,
+        },
+      },
+    };
+
     return await this.prisma.favorite
-      .create({ data: dto })
+      .create({ data })
       .catch(handleErrorConstraintUnique);
   }
 

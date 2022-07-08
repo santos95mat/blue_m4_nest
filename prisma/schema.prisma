@@ -35,8 +35,8 @@ model SL {
 
   favorite Favorite[]
 
-  empresa Empresa @relation(fields: [empresaId], references: [id])
-  empresaId String @map("empresa_id")
+  empresa Empresa? @relation(fields: [empresaId], references: [id], onDelete: SetNull)
+  empresaId String? @map("empresa_id")
 
   @@map("sl")
 }
@@ -66,10 +66,10 @@ model Favorite {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
 
-  slid SL @relation(fields: [slname], references: [name])
+  slid SL @relation(fields: [slname], references: [name], onDelete: Cascade)
   slname String @map("sl_name")
 
   @@map("favorite")
