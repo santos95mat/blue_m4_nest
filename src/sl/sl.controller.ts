@@ -6,16 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { SlService } from './sl.service';
 import { CreateSlDto } from './dto/create-sl.dto';
 import { UpdateSlDto } from './dto/update-sl.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Sl } from './entities/sl.entity';
 import { FavoriteProductDto } from '../favorite/dto/favorite-sl-dto';
 import { Favorite } from 'src/favorite/entities/favorite.entity';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard())
 @ApiTags('sl')
+@ApiBearerAuth()
 @Controller('sl')
 export class SlController {
   constructor(private readonly slService: SlService) {}

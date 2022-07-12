@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { OsService } from './os.service';
 import { CreateOsDto } from './dto/create-os.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard())
 @ApiTags('os')
+@ApiBearerAuth()
 @Controller('os')
 export class OsController {
   constructor(private readonly osService: OsService) {}
