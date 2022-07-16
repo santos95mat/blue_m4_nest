@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Res } from '@nestjs/common';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 
 @ApiTags('status')
@@ -7,8 +7,9 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @ApiExcludeEndpoint()
   @Get()
-  getAppStatus(): string {
-    return this.appService.getAppStatus();
+  getAppHome(@Res() res) {
+    res.redirect('docs');
   }
 }
