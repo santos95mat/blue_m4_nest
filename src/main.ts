@@ -18,6 +18,7 @@ async function bootstrap() {
     .setDescription('API criada em Nest.JS para fins de aprendizado')
     .setVersion('1.0')
     .addServer('http://localhost:3333')
+    .addServer('https://bluem4nest-production.up.railway.app/')
     .addTag('status')
     .addTag('users')
     .addTag('sl')
