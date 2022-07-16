@@ -83,10 +83,6 @@ Acesse [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu 
 
 Para acessar a lista de endpoints e funcionalidades da aplicação, acesse nossa documentação do [Swagger](https://bluem4nest-production.up.railway.app), lá você poderá testar todas as rotas.
 
-Você também pode analisar nosso <a href="./db.pdf" download>Diagrama de Relacionamento de Entidades</a>
-
-
-
 > ## comandos úteis:
 >
 > > - nest g resource {nome} --no-spec
