@@ -1,73 +1,99 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NEST API OS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+#### API em NEST para fins de aprendizagem
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
 
-## Description
+Este é o projeto do módulo quatro do curso de Desenvolvimento Full Stack da Blue Edtech.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Para esta aplicação foi desenvolvida uma API que gera Ordens de serviço.
+Este apresenta fundamentos em NestJS e Prisma, além de conceitos como autenticação, bancos de dados relacionais, filtragem de buscas e documentação de projetos
 
-## Installation
+## Pré-requisitos
 
-```bash
+- **Node** com versão superior ou igual que 16.15.0 - [Node Download](https://nodejs.org/pt-br/download/)
+- **NPM** com versão superior ou igual que 8.5.5 - [Npm Download](https://www.npmjs.com/package/download)
+- **Nest.js** com versão superior ou igual que 8.5.5 - [Nest Download](https://docs.nestjs.com/)
+- **PostgreSQL** com versão superior ou igual que 8.2.6 - [PostgreSQL Download](https://www.postgresql.org/download/)
+
+
+## Scripts disponíveis
+
+Na pasta raíz do projeto podem ser executados os seguintes comandos:
+
+## Clone o repositório:
+
+```
+$ git clone https://github.com/santos95mat/blue_m4_nest.git
+```
+
+## Instalando as dependências:
+
+```
 $ npm install
 ```
 
-## Running the app
+## Executando o projeto
 
-```bash
-# development
-$ npm run start
+### Produção
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+npm run start
 ```
 
-## Test
+### Desenvolvimento
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+npm run start:dev
 ```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+Para conseguir trabalhar com o banco de dados você deverá criar um arquivo .env e adicionar uma url de conexão com seu Postgres local com a chave DATABASE_URL.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+DATABASE_URL="postgresql://yourUser:0000000@localhost:PORT/database"
+```
 
-## License
 
-Nest is [MIT licensed](LICENSE).
+Acesse [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu navegador de forma local
+
+---
+>
+>> ## Autor
+>>
+>>- [Matheus Rodrigues Santos](https://github.com/santos95mat)
+>
+>> ## Mentor
+>>
+>> - [Ivan Gabriel de Borba](https://github.com/ivanBorba/)
+>>
+>> ---
+## Licença
+
+- MIT License (MIT)
+
+
+## Execução
+
+
+## Funcionalidades
+
+Para acessar a lista de endpoints e funcionalidades da aplicação, acesse nossa documentação do [Swagger](https://ryokan-production.up.railway.app), lá você poderá testar todas as rotas.
+
+Você também pode analisar nosso <a href="./db.pdf" download>Diagrama de Relacionamento de Entidades</a>
+
+
+
+> ## comandos úteis:
+>
+> > - nest g resource {nome} --no-spec
+>
+> > - npx prisma generate
+> > - npx prisma db push
+>
+> ---
+
+---
