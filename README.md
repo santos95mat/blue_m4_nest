@@ -81,7 +81,7 @@ Acesse [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu 
 
 ## Funcionalidades
 
-Para acessar a lista de endpoints e funcionalidades da aplicação, acesse nossa documentação do [Swagger](https://ryokan-production.up.railway.app), lá você poderá testar todas as rotas.
+Para acessar a lista de endpoints e funcionalidades da aplicação, acesse nossa documentação do [Swagger](https://bluem4nest-production.up.railway.app), lá você poderá testar todas as rotas.
 
 Você também pode analisar nosso <a href="./db.pdf" download>Diagrama de Relacionamento de Entidades</a>
 
