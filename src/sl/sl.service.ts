@@ -52,13 +52,13 @@ export class SlService {
       where: { id: dto.userId },
     });
 
-    const sl: Sl = await this.prisma.sL.findUnique({
-      where: { name: dto.slname },
-    });
-
     if (!user) {
       throw new NotFoundException(`Entrada de id ${dto.userId} não encontrada`);
     }
+
+    const sl: Sl = await this.prisma.sL.findUnique({
+      where: { name: dto.slname },
+    });
 
     if (!sl) {
       throw new NotFoundException(
