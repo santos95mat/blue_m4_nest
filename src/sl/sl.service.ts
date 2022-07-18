@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/users/entities/users.entities';
 import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
@@ -19,8 +23,16 @@ export class SlService {
       .catch(handleErrorConstraintUnique);
   }
 
-  async findAll(): Promise<Sl[]> {
-    return await this.prisma.sL.findMany();
+  async findAll(query: Partial<Sl>): Promise<Sl[]> {
+    const sl = await this.prisma.sL.findMany({ where: query }).catch(() => {
+      throw new UnprocessableEntityException('Formato de query inválida');
+    });
+
+    if (sl.length === 0) {
+      throw new NotFoundException('Nenhuma entrada encontrada');
+    }
+
+    return sl;
   }
 
   async findOne(id: string): Promise<Sl> {

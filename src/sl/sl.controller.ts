@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { SlService } from './sl.service';
 import { CreateSlDto } from './dto/create-sl.dto';
@@ -36,8 +37,8 @@ export class SlController {
   @ApiOperation({
     summary: 'Listagem dos postes',
   })
-  async findAll(): Promise<Sl[]> {
-    return await this.slService.findAll();
+  async findAll(@Query() query: Partial<Sl>): Promise<Sl[]> {
+    return await this.slService.findAll(query);
   }
 
   @Get(':id')
